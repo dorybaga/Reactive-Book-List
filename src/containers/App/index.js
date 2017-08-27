@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../../logo.svg';
 import './App.css';
 import BookListAppTitle from '../../components/BookListAppTitle';
+import BookList from '../BookList';
 import {getBooksFromFakeXHR, addBookToFakeXHR} from '../../lib/books.db';
 
 class App extends Component {
@@ -11,23 +12,27 @@ class App extends Component {
 
     componentWillMount() {
       // console.log('run logic before render');
+      //initial state
       this.setState({
-        isClicked: 'false',
-        // books: booksFromFakeDB,
-        bookTitle: '',
-        bookAuthor: ''
+        books: []
+      });
+
+      getBooksFromFakeXHR()
+      .then(bookList => {
+        console.log(bookList);
+        this.setState({
+          books: bookList
+        });
+      })
+      .catch(err => {
+        console.log(err);
       });
     }
 
     componentDidMount() {
       // console.log('run logic after render');
-      getBooksFromFakeXHR()
-      .then((books) => {
-        console.log(books);
-      });
 
     }
-
 
     handleChangeTitle(e){
       // console.log('changed title: ', e.target.value);
@@ -58,6 +63,9 @@ class App extends Component {
         <BookListAppTitle
           title="Top 10 Books"
         />
+        <BookList
+          books={this.state.books}
+        />
         <div className="book-form">
           <input
             type="text"
@@ -75,8 +83,6 @@ class App extends Component {
           <br/>
           <button onClick={this.handleBookSubmit.bind(this)}>Add New Book</button>
         </div>
-
-        <booksFromFakeDB />
       </div>
 
     );

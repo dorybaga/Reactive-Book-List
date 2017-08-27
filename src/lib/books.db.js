@@ -28,4 +28,3 @@ export const addBookToFakeXHR = (book) => new Promise((resolve, reject) => {
   }, 500);
 });
 
-export default booksFromFakeDB;
