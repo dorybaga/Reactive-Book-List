@@ -1,3 +1,4 @@
+import React from 'react';
 const booksFromFakeDB = [{
     _id : 1,
     title : 'Talion: The Revenant from DB',
@@ -26,3 +27,5 @@ export const addBookToFakeXHR = (book) => new Promise((resolve, reject) => {
     resolve(booksFromFakeDB);
   }, 500);
 });
+
+export default booksFromFakeDB;
