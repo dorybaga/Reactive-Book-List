@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../../logo.svg';
 import './App.css';
 import BookListAppTitle from '../../components/BookListAppTitle';
+import NewBookForm from '../NewBookForm';
 import BookFilterInput from '../../components/BookFilterInput';
 import BookList from '../BookList';
 import {getBooksFromFakeXHR, addBookToFakeXHR} from '../../lib/books.db';
@@ -59,10 +60,11 @@ class App extends Component {
     handleBookSubmit(){
       let newBook = {
         title: this.state.bookTitle,
-        year: this.state.bookAuthor
+        author: this.state.bookAuthor
       };
-
-      console.log();
+      this.setState({
+        books: [...this.state.books, newBook]
+      })
     }
 
   render() {
@@ -80,25 +82,19 @@ class App extends Component {
           filter={this.state.bookFilterText}
           books={this.state.books}
         />
-        <div className="book-form">
-          <input
-            type="text"
-            name="title"
-            placeholder="Book Title"
-            onChange={this.handleChangeTitle.bind(this)}
-          />
-          <br />
-          <input
-            type="text"
-            name="title"
-            placeholder="Book Author"
-            onChange={this.handleChangeAuthor.bind(this)}
-          />
-          <br/>
-          <button onClick={this.handleBookSubmit.bind(this)}>Add New Book</button>
-        </div>
-      </div>
 
+        <NewBookForm
+          handleChangeTitle={
+            this.handleChangeTitle.bind(this)
+          }
+          handleChangeAuthor={
+            this.handleChangeAuthor.bind(this)
+          }
+          handleBookSubmit={
+            this.handleBookSubmit.bind(this)
+          }
+        />
+      </div>
     );
   }
 }

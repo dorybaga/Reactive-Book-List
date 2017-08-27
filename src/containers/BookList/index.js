@@ -9,7 +9,7 @@ class BookList extends Component {
           this.props.books
             .filter(book => {
               if (this.props.filter){
-                return book.author.toLowerCase().indexOf(this.props.filter.toLowerCase()) > -1
+                return book.title.toLowerCase().indexOf(this.props.filter.toLowerCase()) > -1
               } else {
                 return book
               }
