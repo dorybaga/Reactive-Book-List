@@ -24,7 +24,7 @@ class NewBookForm extends Component {
     });
   }
 
-  handleBookSubmit(e){
+  handleBookSubmit(){
     let newBook = {
       title: this.state.title,
       author: this.state.author,
@@ -34,8 +34,6 @@ class NewBookForm extends Component {
     var reset = document.querySelectorAll(".inputField");
     reset[0].value = '';
     reset[1].value = '';
-
-
   }
 
   render(){
