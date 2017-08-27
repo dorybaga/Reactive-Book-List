@@ -12,26 +12,31 @@ class NewBookForm extends Component {
     }
   }
 
-   handleChangeTitle(e){
-        this.setState({
-          title: e.target.value
-        });
-      }
+  handleChangeTitle(e){
+    this.setState({
+      title: e.target.value
+    });
+  }
 
-      handleChangeAuthor(e){
-        this.setState({
-          author: e.target.value
-        });
-      }
+  handleChangeAuthor(e){
+    this.setState({
+      author: e.target.value
+    });
+  }
 
-      handleBookSubmit(){
-        let newBook = {
-          title: this.state.title,
-          author: this.state.author,
-        };
+  handleBookSubmit(e){
+    let newBook = {
+      title: this.state.title,
+      author: this.state.author,
+    };
 
-        this.props.addBook(newBook);
-      }
+    this.props.addBook(newBook);
+    var reset = document.querySelectorAll(".inputField");
+    reset[0].value = '';
+    reset[1].value = '';
+
+
+  }
 
   render(){
     return (
@@ -42,6 +47,7 @@ class NewBookForm extends Component {
           type="text"
           name="title"
           placeholder="New Book Title"
+          className="inputField"
           onChange={this.handleChangeTitle.bind(this)}
         />
         <br />
@@ -49,6 +55,7 @@ class NewBookForm extends Component {
           type="text"
           name="title"
           placeholder="New Book Author"
+          className="inputField"
           onChange={this.handleChangeAuthor.bind(this)}
         />
         <br/>
