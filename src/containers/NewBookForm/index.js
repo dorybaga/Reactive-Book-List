@@ -1,6 +1,37 @@
 import React, { Component } from 'react';
+import Book from '../../components/Book';
+
 
 class NewBookForm extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      title: '',
+      author: ''
+    }
+  }
+
+   handleChangeTitle(e){
+        this.setState({
+          title: e.target.value
+        });
+      }
+
+      handleChangeAuthor(e){
+        this.setState({
+          author: e.target.value
+        });
+      }
+
+      handleBookSubmit(){
+        let newBook = {
+          title: this.state.title,
+          author: this.state.author,
+        };
+
+        this.props.addBook(newBook);
+      }
 
   render(){
     return (
@@ -11,17 +42,18 @@ class NewBookForm extends Component {
           type="text"
           name="title"
           placeholder="New Book Title"
-          onChange={this.props.handleChangeTitle}
+          onChange={this.handleChangeTitle.bind(this)}
         />
         <br />
         <input
           type="text"
           name="title"
           placeholder="New Book Author"
-          onChange={this.props.handleChangeAuthor}
+          onChange={this.handleChangeAuthor.bind(this)}
         />
         <br/>
-        <button onClick={this.props.handleBookSubmit}>Submit</button>
+
+        <button onClick={this.handleBookSubmit.bind(this)}>Submit</button>
       </div>
     );
   }
