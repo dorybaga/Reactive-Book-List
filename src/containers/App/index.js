@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../../logo.svg';
 import './App.css';
 import BookListAppTitle from '../../components/BookListAppTitle';
+import BookFilterInput from '../../components/BookFilterInput';
 import BookList from '../BookList';
 import {getBooksFromFakeXHR, addBookToFakeXHR} from '../../lib/books.db';
 
@@ -14,7 +15,8 @@ class App extends Component {
       // console.log('run logic before render');
       //initial state
       this.setState({
-        books: []
+        books: [],
+        bookFilterText: ''
       });
 
       getBooksFromFakeXHR()
@@ -27,6 +29,12 @@ class App extends Component {
       .catch(err => {
         console.log(err);
       });
+    }
+
+    handleFilterInputChange(e){
+      this.setState({
+        bookFilterText: e.target.value
+      })
     }
 
     componentDidMount() {
@@ -63,7 +71,13 @@ class App extends Component {
         <BookListAppTitle
           title="Top 10 Books"
         />
+        <BookFilterInput
+          filterInputChange={
+            this.handleFilterInputChange.bind(this)
+          }
+        />
         <BookList
+          filter={this.state.bookFilterText}
           books={this.state.books}
         />
         <div className="book-form">
