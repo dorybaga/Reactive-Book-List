@@ -13,8 +13,6 @@ class App extends Component {
     }
 
     componentWillMount() {
-      // console.log('run logic before render');
-      //initial state
       this.setState({
         books: [],
         bookFilterText: ''
@@ -38,20 +36,13 @@ class App extends Component {
       })
     }
 
-    componentDidMount() {
-      // console.log('run logic after render');
-
-    }
-
     handleChangeTitle(e){
-      // console.log('changed title: ', e.target.value);
       this.setState({
         bookTitle: e.target.value
       });
     }
 
     handleChangeAuthor(e){
-      // console.log('changed author: ', e.target.value);
       this.setState({
         bookAuthor: e.target.value
       });
@@ -71,18 +62,15 @@ class App extends Component {
     return (
       <div>
         <BookListAppTitle
-          title="Top 10 Books"
+          title="Top 3 Books"
         />
+        <br/>
         <BookFilterInput
           filterInputChange={
             this.handleFilterInputChange.bind(this)
           }
         />
-        <BookList
-          filter={this.state.bookFilterText}
-          books={this.state.books}
-        />
-
+        <br/>
         <NewBookForm
           handleChangeTitle={
             this.handleChangeTitle.bind(this)
@@ -93,6 +81,11 @@ class App extends Component {
           handleBookSubmit={
             this.handleBookSubmit.bind(this)
           }
+        />
+
+        <BookList
+          filter={this.state.bookFilterText}
+          books={this.state.books}
         />
       </div>
     );

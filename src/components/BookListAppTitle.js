@@ -1,7 +1,6 @@
 import React from 'react';
 
-export const BookListAppTitle = ({ title }) => {
-  // console.log(props.title)
+export const BookListAppTitle = ({title}) => {
   return (
     <h1>{title}</h1>
   );
