@@ -10,13 +10,14 @@ import {getBooksFromFakeXHR, addBookToFakeXHR} from '../../lib/books.db';
 class App extends Component {
     constructor(){
       super();
+
+      this.state = {
+        books: [],
+        bookFilterText:''
+      }
     }
 
     componentWillMount() {
-      this.setState({
-        books: [],
-        bookFilterText: ''
-      });
 
       getBooksFromFakeXHR()
       .then(bookList => {
