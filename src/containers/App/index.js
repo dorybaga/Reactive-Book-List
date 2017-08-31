@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import logo from '../../logo.svg';
+import { loadBooks, addBook } from '../../actions';
 import './App.css';
 import BookListAppTitle from '../../components/BookListAppTitle';
 import NewBookForm from '../NewBookForm';
@@ -12,18 +14,18 @@ class App extends Component {
       super();
 
       this.state = {
-        books: [],
+        // books: [],
         bookFilterText:''
       }
     }
 
     componentWillMount() {
-
       getBooksFromFakeXHR()
       .then(bookList => {
-        this.setState({
-          books: bookList
-        });
+        this.props.loadBooks(bookList);
+        // this.setState({
+        //   books: bookList
+        // });
       })
       .catch(err => {
         console.log(err);
@@ -40,7 +42,10 @@ class App extends Component {
       addBookToFakeXHR(book)
       .then(book => {
           this.setState({book});
-      });
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
 
   render() {
@@ -56,16 +61,33 @@ class App extends Component {
           }
         />
         <br/>
-        <NewBookForm
-          addBook={this.addBook.bind(this)}
-        />
+        <NewBookForm />
         <BookList
           filter={this.state.bookFilterText}
-          books={this.state.books}
+          books={this.props.books}
         />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    books: state.books
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadBooks: (books) => {
+      dispatch(loadBooks(books));
+    }
+  }
+}
+
+const ConnectedApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+export default ConnectedApp;

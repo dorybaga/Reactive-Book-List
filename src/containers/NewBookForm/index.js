@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Book from '../../components/Book';
+// import { addBookToFakeXHR } from '../../lib';
+import { addBook } from '../../actions';
 
 
 class NewBookForm extends Component {
@@ -10,6 +13,10 @@ class NewBookForm extends Component {
       title: '',
       author: ''
     }
+  }
+
+  componentDidMount() {
+    console.log(this.props)
   }
 
   handleChangeTitle(e){
@@ -34,6 +41,11 @@ class NewBookForm extends Component {
     var reset = document.querySelectorAll(".inputField");
     reset[0].value = '';
     reset[1].value = '';
+
+    // addBookToFakeXHR(newBook)
+    //   .then(_ => {
+    //     console.log('added to database')
+    //   })
   }
 
   render(){
@@ -64,4 +76,18 @@ class NewBookForm extends Component {
   }
 }
 
-export default NewBookForm;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addBook: (book) => {
+      dispatch(addBook(book));
+    }
+  }
+}
+
+const ConnectedNewBookForm = connect(
+  null,
+  mapDispatchToProps
+)(NewBookForm)
+
+export default ConnectedNewBookForm;
